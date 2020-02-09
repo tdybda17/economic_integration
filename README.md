@@ -61,6 +61,7 @@ Herfra vil der blive beskrevet hvad der skal ske i E-conomic når en ordre modta
 Fra **Salg --> Ny ordre**
 
 ### 2. Vælg kunde
+*Om dette skal ske WooCommerce-side eller integration-side er for implementeringsspecifikt for os*
 Produkter kan have forskellige typer på webshoppen, som er vigtig information for ordren. Hvis `product.type` på bare ét af produkterne er forskellig fra `'Dybdahl Erhvervstøj'` er produktet køb via et foreningslogin på B2C shoppen. Alle produkter med `product.type == 'Dybdahl Erhvervstøj'` er købt af almindelige kunder uden login. (Foreninger kan også have en ordre med blandede produkter fra både deres forening og `'Dybdahl Erhvervstøj'`).
 
 Proceduren for at vælge hvilken kunde som ordren er bestilt af, er som følger:
