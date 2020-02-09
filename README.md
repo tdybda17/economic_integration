@@ -109,4 +109,4 @@ Gentag 1, 2, 3, 4 indtil ikke flere varer.
 
 Den sidste vare der (altid) skal tilføjes er et produkt med e-conomic **Vare nr.: Fragtwebshop**. Prisen ændres til `order.shipping_price`
 
-Hvis der mødes et produkt, som ikke findes i E-conomic, skal der ændres i overskiften på **Noter og referencer**. Der skal tilføjes strengen `' - FEJL I LINJER'` til overskriften. Det er meget vigtigt at integrationen ikke selv prøver at oprette produkter som ikke findes. (Hvis fejlen sker efter det `i`'th produkt, er det lige meget om de `i - 1` produkter allerede er tilføjet, eller om de slettes helt fra orden)
+Hvis der mødes et produkt, som ikke findes i E-conomic, skal der ændres i overskiften på **Noter og referencer**. Der skal tilføjes strengen `' - FEJL I LINJER'` til overskriften. Det er meget vigtigt at integrationen ikke selv prøver at oprette produkter som ikke findes. (Hvis fejlen sker efter det `i`'th produkt, er det lige meget om de `i - 1` produkter forbliver på ordren eller ej)
