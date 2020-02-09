@@ -149,4 +149,6 @@ Herfra vil der blive beskrevet hvad der skal ske i E-conomic når en ordre modta
 Fra **Salg --> Ny ordre**
 
 ### 2. Vælg kunde
+Vælg da kunden med **nr.** som matcher med `order.shipping_info.customer_id`. 
 
+Hvis ikke der findes en kunde i E-conomic som matcher dette, skal en ordre med kunde **nr. 100** vælges. (Vi ved, at dette betyder at der er sket en fejl fra webshoppen til E-conomic. I tekst 1 under Noter og referencer skal den indsætte `order.shipping_info.customer_id + ' findes ikke'`)
