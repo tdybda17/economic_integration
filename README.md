@@ -141,7 +141,7 @@ Fra `order.shipping_info` skal der bruges følgende felter
 | Felt               | Woocommerce beskrivelse                       | E-conomic beskrivelse |
 |--------------------|-----------------------------------------------|-----------------------|
 | `customer_id`      | `ID` fra brugere -> groups -> Tilføj adresser | Kunde nr.             |
-| `leveringssted_id` | Antal af denne vare                           | Leveringssted nr.     |
+| `leveringssted_id` | Nyt felt til adresser!                        | Leveringssted nr.     |
 
 Herfra vil der blive beskrevet hvad der skal ske i E-conomic når en ordre modtages
 
