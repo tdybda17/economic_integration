@@ -123,6 +123,7 @@ Fra en webshop ordre `order` skal der bruges følgende felter
 | `order_number`           | Ordre nummer                   |
 | `first_name`             | Købers fornavn                 |
 | `last_name`              | Købers efternavn               |
+| `lonnr`                  | Købers lønnr.                  |
 | `shipping_info`          | Købers leveringssted           |
 | `products`               | Liste af bestilte produkter    |
 | `shipping_price`         | Forsendelses gebyr             |
@@ -151,4 +152,23 @@ Fra **Salg --> Ny ordre**
 ### 2. Vælg kunde
 Vælg da kunden med **nr.** som matcher med `order.shipping_info.customer_id`. 
 
-Hvis ikke der findes en kunde i E-conomic som matcher dette, skal en ordre med kunde **nr. 100** vælges. (Vi ved, at dette betyder at der er sket en fejl fra webshoppen til E-conomic. I tekst 1 under Noter og referencer skal den indsætte `order.shipping_info.customer_id + ' findes ikke'`)
+Hvis ikke der findes en kunde i E-conomic som matcher dette, skal en ordre med kunde **nr. 100** vælges. (Vi ved, at dette betyder at der er sket en fejl fra webshoppen til E-conomic. I tekst 1 under Noter og referencer skal den indsætte `order.shipping_info.customer_id + ' fra webshop findes ikke i E-conomic'`)
+
+### 3. Vælg levering
+#### Leveringssteder
+Find leveringsstedet ved at matche **nr.** og `order.shipping_info.leveringssted_id`. Sker der ikke et match, skal der oprettes et *nyt* leveringssted med **adressen**: `'FEJL I LEVERINGSSTED FRA WEBSHOP - ' + order.shipping_info.leveringssted_id`.
+
+### 4. Noter og referencer
+1. Overskrift skal være `order.first_name + ' ' + order.last_name + ' ' + order.lonnr`
+2. Tekst 1 skal være `'B2B Webshop ' + order.order_number + \n + 'Bemærkning: ' + order.order_notes`
+3. Tekst 2 skal være tom
+
+### 5. Opret ordrelinjer
+1. Indsæt `order.product.sku` til **Varenr.** feltet
+2. **Varenavn** skal være det som E-conomic foreslår men `... += order.product.custom_fields`
+3. Indsæt antal `order.product.amount`
+4. Prisen her skal ikke indsættes, da E-conomic selv skal hente de tilbudspriser, som den pågældende kunde har fået. Når vi tilføjer ordrelinjer manuelt i E-conomic henter den selv denne pris.
+
+Gentag 1, 2, 3, 4 indtil ikke flere varer.
+
+Hvis der mødes et produkt, som ikke findes, skal der ændres i overskiften på ordren. Der skal tilføjes “ - FEJL I LINJER”. Det er meget vigtigt at integrationen ikke selv prøver at oprette produktet som ikke findes. (Hvis fejlen sker efter det `i`'th produkt, er det lige meget om de `i - 1` produkter forbliver på ordren eller ej)
