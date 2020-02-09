@@ -105,7 +105,7 @@ Leveringsbetingelser skal være enten GLS eller Afhentning i butik afhængig af 
 3. Indsæt antal `order.product.amount`
 4. Ret **Pris** til `order.product.price` (Da denne kan være forskellig fra E-conomic varens). *Alle priser i E-conomic er uden moms*
 
-Gentag 1, 2, 3, 4 indtil ikke flere varer.
+Gentag 1, 2, 3, 4 indtil ikke flere produkter.
 
 Den sidste vare der (altid) skal tilføjes er et produkt med e-conomic **Vare nr.: Fragtwebshop**. Prisen ændres til `order.shipping_price`
 
