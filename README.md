@@ -39,8 +39,9 @@ Fra en webshop ordre `order` skal der bruges følgende felter
 | `zipcode`                | Købers postnr.                 |
 | `city`                   | Købers by                      |
 | `country`                | Købers land                    |
-| `products`               | List af bestilte produkter     |
+| `products`               | Liste af bestilte produkter    |
 | `payment_method`         | Betalingsmetoden               |
+| `order_notes`            | Købers bemærkninger til ordren |
 
 Fra `products` skal der bruges følgende felter
 
@@ -58,12 +59,12 @@ Herfra vil der blive beskrevet hvad der skal ske i E-conomic når en ordre modta
 Fra **Salg --> Ny ordre**
 
 ### 2. Vælg kunde
-Produkter kan have forskellige typer på webshoppen, som er vigtig information for ordren. Hvis `product.type` er forskellig fra `'Dybdahl Erhvervstøj'` er produktet køb via et foreningslogin på B2C shoppen. Alle produkter med `product.type == 'Dybdahl Erhvervstøj'` er købt af almindelige kunder uden login.
+Produkter kan have forskellige typer på webshoppen, som er vigtig information for ordren. Hvis `product.type` på bare ét af produkterne er forskellig fra `'Dybdahl Erhvervstøj'` er produktet køb via et foreningslogin på B2C shoppen. Alle produkter med `product.type == 'Dybdahl Erhvervstøj'` er købt af almindelige kunder uden login. (Foreninger kan også have en ordre med blandede produkter fra både deres forening og `'Dybdahl Erhvervstøj'`).
 
 Proceduren for at vælge hvilken kunde som ordren er bestilt af, er som følger:
 ```
-for product in order.products
-    if product.type != 'Dybdahl Erhvervtøj'
+foreach product in order.products
+    if product.type is not equal to 'Dybdahl Erhvervtøj'
         return product.type
 return 'Dybdahl Erhvervstøj'
 ```
@@ -73,4 +74,25 @@ Herefter kan vi vælge en kunde til ordren i E-conomic:
 2. Hvis noget forskelligt fra `'Dybdahl Erhvervstøj'` blev returneret, vælg da også **B2C - Webshop** med **nr. 2** i E-conomic men ændre adressefeltet på kunden til den returnerede værdi fra proceduren.
 
 ### 3. Oprettelse af felter på ordren
+Fælgende overskrifter i dette afsnit stemmer overens med hvad E-conomic kalder dem i deres brugergrænseflade.
+
+#### Betingelser
+Hvis `order.payment_method` er betalingskort vælges i E-conomic **Betalingskort** med **nr. 2**
+Hvis `order.payment_method` er MobilePay vælges i E-conomic **MobilePay** med **nr. 3** 
+
+#### Noter og referencer
+1. Overskrift skal være `'B2C Webshop ' + order.order_number`
+2. Tekst 1 skal være `order.mail_address + ' (' + order.phone_number + ')' + \n + order.order_notes`
+3. Tekst 2 skal være tomt
+
+#### Levering
+Opret nyt leveringssted og:
+1. Adresse skal være `order.first_name + ' ' + order.last_name + \n + order.street_name_and_number`
+2. Post nr. skal være `order.zipcode`
+3. By skal være `order.city`
+4. Land skal være `order.country`
+
+Leveringsbetingelser skal være enten GLS eller Afhentning i butik
+
+### 4. Oprettelse af ordrelinjer
 
