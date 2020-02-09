@@ -101,6 +101,7 @@ Leveringsbetingelser skal være enten GLS eller Afhentning i butik afhængig af 
 ### 4. Oprettelse af ordrelinjer
 #### Ordrelinje
 1. Indsæt `order.product.sku` til **Varenr.** feltet
+2. **Varenavn** skal være det som E-conomic foreslår men `... += order.product.custom_fields`
 2. Hvis `order.type` er forskellig fra `'Dybdahl Erhvervstøj'` indsæt da `... += ' - ' + order.type` til varens **Varenavn**
 3. Indsæt antal `order.product.amount`
 4. Ret **Pris** til `order.product.price` (Da denne kan være forskellig fra E-conomic varens). *Alle priser i E-conomic er uden moms*
@@ -110,3 +111,42 @@ Gentag 1, 2, 3, 4 indtil ikke flere produkter.
 Den sidste vare der (altid) skal tilføjes er et produkt med e-conomic **Vare nr.: Fragtwebshop**. Prisen ændres til `order.shipping_price`
 
 Hvis der mødes et produkt, som ikke findes i E-conomic, skal der ændres i overskiften på **Noter og referencer**. Der skal tilføjes strengen `' - FEJL I LINJER'` til overskriften. Det er meget vigtigt at integrationen ikke selv prøver at oprette produkter som ikke findes. (Hvis fejlen sker efter det `i`'th produkt, er det lige meget om de `i - 1` produkter forbliver på ordren eller ej)
+
+
+
+## B2B webshop
+Fra en webshop ordre `order` skal der bruges følgende felter
+
+| Felt                     | Beskrivelse                    |
+|--------------------------|--------------------------------|
+| `shop_type`              | Shoppen som ordren stammer fra |
+| `order_number`           | Ordre nummer                   |
+| `first_name`             | Købers fornavn                 |
+| `last_name`              | Købers efternavn               |
+| `shipping_info`          | Købers leveringssted           |
+| `products`               | Liste af bestilte produkter    |
+| `shipping_price`         | Forsendelses gebyr             |
+| `order_notes`            | Købers bemærkninger til ordren |
+
+Fra `order.products` skal der bruges følgende felter
+
+| Felt            | Beskrivelse                         |
+|-----------------|-------------------------------------|
+| `sku`           | Varenummer på 18 tegn               |
+| `amount`        | Antal af denne vare                 |
+| `custom_fields` | Felter som navnetryk, afdeling osv. |
+
+Fra `order.shipping_info` skal der bruges følgende felter
+
+| Felt               | Woocommerce beskrivelse                       | E-conomic beskrivelse |
+|--------------------|-----------------------------------------------|-----------------------|
+| `customer_id`      | `ID` fra brugere -> groups -> Tilføj adresser | Kunde nr.             |
+| `leveringssted_id` | Antal af denne vare                           | Leveringssted nr.     |
+
+Herfra vil der blive beskrevet hvad der skal ske i E-conomic når en ordre modtages
+
+### 1. Lav ny ordre
+Fra **Salg --> Ny ordre**
+
+### 2. Vælg kunde
+
