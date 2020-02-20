@@ -19,7 +19,6 @@ Der er tale om 3 forskellige integrationer med hver deres funktionalitet men med
 De tre forskellige integrationer er beskrevet hver for sig med hver deres specifitioner både fra webshoppens såvel som E-conomics side af integrationen.
 
 ### Terminologi og antagelser
-**Skriv dette færdigt!!!!!!!!!!!!!!!!!!!!!!!!!!**
 * `var` er en variable.
 * Alle variabelnavne i denne beskrivelse er eksempler.
 * Eksempler på ordre fra webshoppen er vist med python dictionary struktur og er **kun** eksempler.
