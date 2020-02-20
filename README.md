@@ -81,8 +81,8 @@ Herefter kan vi vælge en kunde til ordren i E-conomic:
 Fælgende overskrifter i dette afsnit stemmer overens med hvad E-conomic kalder dem i deres brugergrænseflade.
 
 #### Betingelser
-Hvis `order.payment_method` er betalingskort vælges i E-conomic **Betalingskort** med **nr. 2**
-Hvis `order.payment_method` er MobilePay vælges i E-conomic **MobilePay** med **nr. 3** 
+* Hvis `order.payment_method` er betalingskort vælges i E-conomic **Betalingskort** med **nr. 2**
+* Hvis `order.payment_method` er MobilePay vælges i E-conomic **MobilePay** med **nr. 3** 
 
 #### Noter og referencer
 1. Overskrift skal være `'B2C Webshop ' + order.order_number`
@@ -101,12 +101,12 @@ Leveringsbetingelser skal være enten GLS eller Afhentning i butik afhængig af 
 ### 4. Oprettelse af ordrelinjer
 #### Ordrelinje
 1. Indsæt `order.product.sku` til **Varenr.** feltet
-2. **Varenavn** skal være det som E-conomic foreslår men `... += order.product.custom_fields`
-2. Hvis `order.type` er forskellig fra `'Dybdahl Erhvervstøj'` indsæt da `... += ' - ' + order.type` til varens **Varenavn**
-3. Indsæt antal `order.product.amount`
-4. Ret **Pris** til `order.product.price` (Da denne kan være forskellig fra E-conomic varens). *Alle priser i E-conomic er uden moms*
+2. **Varenavn** skal være det som E-conomic foreslår `x` men `x += order.product.custom_fields`
+3. Hvis `order.type` er forskellig fra `'Dybdahl Erhvervstøj'` indsæt da `x += ' - ' + order.type` til varens **Varenavn**
+4. Indsæt antal `order.product.amount`
+5. Ret **Pris** til `order.product.price` (Da denne kan være forskellig fra E-conomic varens). *Alle priser i E-conomic er uden moms*
 
-Gentag 1, 2, 3, 4 indtil ikke flere produkter.
+Gentag 1, 2, 3, 4, 5 indtil ikke flere produkter.
 
 Den sidste vare der (altid) skal tilføjes er et produkt med e-conomic **Vare nr.: Fragtwebshop**. Prisen ændres til `order.shipping_price`
 
@@ -165,7 +165,7 @@ Find leveringsstedet ved at matche **nr.** og `order.shipping_info.leveringssted
 
 ### 5. Opret ordrelinjer
 1. Indsæt `order.product.sku` til **Varenr.** feltet
-2. **Varenavn** skal være det som E-conomic foreslår men `... += order.product.custom_fields`
+2. **Varenavn** skal være det som E-conomic foreslår `x` men `x += order.product.custom_fields`
 3. Indsæt antal `order.product.amount`
 4. Prisen her skal ikke indsættes, da E-conomic selv skal hente de tilbudspriser, som den pågældende kunde har fået. Når vi tilføjer ordrelinjer manuelt i E-conomic henter den selv denne pris.
 
