@@ -2,7 +2,7 @@
 
 ## Introduktion
 
-Denne beskrivelse forsøger at specificere integrationen mellem en Dybdahl Erhvervstøj Woocommerce Webshop (Herefter webshop) og E-conomic, hvor formålet er at oprette ordre i E-conomic som blev modtaget i webshoppen.
+Denne beskrivelse forsøger at specificere integrationen mellem en Dybdahl Erhvervstøj Woocommerce Webshop (Herefter webshop) og E-conomic, hvor formålet er at oprette ordre i E-conomic som bliver modtaget i webshoppen. Beskrivelsen er lavet af Dybdahl Erhvervstøj
 
 Definationen af webshop ændre sig en smule igennem beskrivelsen, da der er tale om flere webshops. For nu, bliver der taget udgangspunkt i én webshop, da system beskrivelsen er den samme.
 
@@ -21,7 +21,8 @@ De tre forskellige integrationer er beskrevet hver for sig med hver deres specif
 ### Terminologi og antagelser
 * `var` er en variable.
 * Alle variabelnavne i denne beskrivelse er eksempler.
-* Eksempler på ordre fra webshoppen er vist med python dictionary struktur og er **kun** eksempler.
+* Eksempler på ordre fra webshoppen er vist med tabeller og er **kun** eksempler.
+* Kodeeksempler er pseudo beskrivelser
 
 ## B2C webshop
 Fra en webshop ordre `order` skal der bruges følgende felter
@@ -54,15 +55,15 @@ Fra `order.products` skal der bruges følgende felter
 | `type`          | Produktets type (Tilknytning)       |
 | `custom_fields` | Felter som navnetryk, afdeling osv. |
 
-Herfra vil der blive beskrevet hvad der skal ske i E-conomic når en ordre modtages
+Herfra vil der blive beskrevet hvad der skal ske i E-conomic når en ordre modtages fra B2C shoppen
 
 ### 1. Lav ny ordre
 Fra **Salg --> Ny ordre**
 
 ### 2. Vælg kunde
-*Om dette skal ske WooCommerce-side eller integration-side er for implementeringsspecifikt for os*
+*Om dette punkt skal ske WooCommerce-side eller integration-side er for implementeringsspecifikt for os hos Dybdahl Erhvervstøj til at kunne svare på*
 
-Produkter kan have forskellige typer på webshoppen, som er vigtig information for ordren. Hvis `product.type` på bare ét af produkterne er forskellig fra `'Dybdahl Erhvervstøj'` er produktet køb via et foreningslogin på B2C shoppen. Alle produkter med `product.type == 'Dybdahl Erhvervstøj'` er købt af almindelige kunder uden login. (Foreninger kan også have en ordre med blandede produkter fra både deres forening og `'Dybdahl Erhvervstøj'`).
+Produkter kan have forskellige typer på webshoppen, som er vigtig information for ordren. Hvis `product.type` på bare ét af produkterne er forskellig fra `'Dybdahl Erhvervstøj'` er produktet købt via et foreningslogin på B2C shoppen. Alle produkter med `product.type == 'Dybdahl Erhvervstøj'` er købt af almindelige kunder uden login. (Foreninger kan også have en ordre med blandede produkttyper, fra både deres forening og `'Dybdahl Erhvervstøj'`).
 
 Proceduren for at vælge hvilken kunde som ordren er bestilt af, er som følger:
 ```
