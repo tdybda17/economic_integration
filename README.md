@@ -172,3 +172,7 @@ Find leveringsstedet ved at matche **nr.** og `order.shipping_info.leveringssted
 Gentag 1, 2, 3, 4 indtil ikke flere varer.
 
 Hvis der mødes et produkt, som ikke findes, skal der ændres i overskiften på ordren. Der skal tilføjes “ - FEJL I LINJER”. Det er meget vigtigt at integrationen ikke selv prøver at oprette produktet som ikke findes. (Hvis fejlen sker efter det `i`'th produkt, er det lige meget om de `i - 1` produkter forbliver på ordren eller ej)
+
+
+## Norisol webshop
+Denne er identisk med den foregående, B2B webshop
