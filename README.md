@@ -28,7 +28,7 @@ Rigtig fornuftig top-forstærker. Har det lidt svært i 4 ohm, men trækker helt
 2. https://www.thomann.de/intl/dbx_223_xs.htm (Solidt delefilter i god kvalitet)
 
 ### Subtotal
-DKK 20.527 (eklskl. kabler)
+DKK 20.527 (ekskl. kabler)
 
 
 # B setup
