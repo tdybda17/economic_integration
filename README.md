@@ -27,4 +27,9 @@ Rigtig fornuftig top-forstærker. Har det lidt svært i 4 ohm, men trækker helt
 1. https://www.thomann.de/intl/behringer_cx2310_v2.htm (Har det med at gå til efter et par år, men koster ikke mere end man kan få et nyt)
 2. https://www.thomann.de/intl/dbx_223_xs.htm (Solidt delefilter i god kvalitet)
 
+### Subtotal
+DKK 20.527 (eklskl. kabler)
+
+
+# B setup
 
