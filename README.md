@@ -31,14 +31,23 @@ Rigtig fornuftig top-forstærker. Har det lidt svært i 4 ohm, men trækker helt
 DKK 20.527 (ekskl. kabler)
 
 # B setup
-For et lidt mindre setup kan du skifte toppen ud.
+Lidt mindre setup.
+
+### Subs
+2x https://www.thomann.de/intl/db_technologies_lvx_psw15.htm
 
 ### Toppe
 2x https://www.thomann.de/intl/ev_zlx_12.htm
 
-### Top forstærker
+### Forstærker
+#### Slave
+Samme som i A
+
+#### Top forstærker
 1x https://www.thomann.de/intl/the_tamp_e800.htm
 
-### Subtoal
-DKK 18.115 (ekskl. kabler)
+#### Delefiltre
+Samme som i A
 
+### Subtoal
+DKK 16.267 (ekskl. kabler)
