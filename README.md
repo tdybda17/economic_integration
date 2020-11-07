@@ -3,7 +3,7 @@
 ### Subs
 2x https://www.thomann.de/intl/jbl_prx_418s.htm
 
-Hvis ikke vi havde vore Beyma bundkasser, så havde jeg investeret i dem her!
+Hvis ikke vi havde vores Beyma bundkasser, så havde jeg investeret i dem her!
 
 ### Toppe
 2x https://www.thomann.de/intl/ev_zlx_15.htm
