@@ -1,178 +1,20 @@
-# Integration mellem Woocommerce webshop og E-conomic
+## A setup
 
-## Introduktion
+### Subs
+2x https://www.thomann.de/intl/jbl_prx_418s.htm
 
-Denne beskrivelse forsøger at specificere integrationen mellem en Dybdahl Erhvervstøj Woocommerce Webshop (Herefter webshop) og E-conomic, hvor formålet er at oprette ordre i E-conomic som bliver modtaget i webshoppen. Beskrivelsen er lavet af Dybdahl Erhvervstøj
+### Toppe
+2x https://www.thomann.de/intl/ev_zlx_15.htm
 
-Definationen af webshop ændre sig en smule igennem beskrivelsen, da der er tale om flere webshops. For nu, bliver der taget udgangspunkt i én webshop, da system beskrivelsen er den samme.
+### Forstærkere
+#### Slave
+1x https://www.thomann.de/intl/the_tamp_tsa_4000.htm
 
-### System beskrivelse
-Integrationen opretter identitiske ordrer imellem webshop og E-conomic. Når en ordre er gået igennem fra webshoppen, skal integrationen tilføje en ordre i E-conomic med tilsvarende oplysninger fra webshopordren.
+#### Top forstærker
+https://www.thomann.de/intl/the_tamp_tsa_1400.htm
 
-## De foreskellige webshops
-Der er tale om 3 forskellige integrationer med hver deres funktionalitet men med samme formål. De tre webshops er
+### Delefiltre
+2 valgmuligheder
 
-1. Dansk B2C Webshop (Herefter B2C webshop)
-2. Dansk B2B Webshop (Herefter B2B webshop)
-3. Svensk B2B Webshop (Herefter Norisol webshop)
-
-De tre forskellige integrationer er beskrevet hver for sig med hver deres specifitioner både fra webshoppens såvel som E-conomics side af integrationen.
-
-### Terminologi og antagelser
-* `var` er en variable.
-* Alle variabelnavne i denne beskrivelse er eksempler.
-* Eksempler på ordre fra webshoppen er vist med tabeller og er **kun** eksempler.
-* Kodeeksempler er pseudo beskrivelser
-
-## B2C webshop
-Fra en webshop ordre `order` skal der bruges følgende felter
-
-| Felt                     | Beskrivelse                    |
-|--------------------------|--------------------------------|
-| `shop_type`              | Shoppen som ordren stammer fra |
-| `order_number`           | Ordre nummer                   |
-| `first_name`             | Købers fornavn                 |
-| `last_name`              | Købers efternavn               |
-| `mail_adress`            | Købers mail                    |
-| `phone_number`           | Købers telefon nr.             |
-| `street_name_and_number` | Købers adresse og hus nr.      |
-| `zipcode`                | Købers postnr.                 |
-| `city`                   | Købers by                      |
-| `country`                | Købers land                    |
-| `products`               | Liste af bestilte produkter    |
-| `payment_method`         | Betalingsmetoden               |
-| `shipping_type`          | Forsendelses typen             |
-| `shipping_price`         | Forsendelses gebyr             |
-| `order_notes`            | Købers bemærkninger til ordren |
-
-Fra `order.products` skal der bruges følgende felter
-
-| Felt            | Beskrivelse                         |
-|-----------------|-------------------------------------|
-| `sku`           | Varenummer på 18 tegn               |
-| `amount`        | Antal af denne vare                 |
-| `price`         | Prisen ekskl. moms                  |
-| `type`          | Produktets type (Tilknytning)       |
-| `custom_fields` | Felter som navnetryk, afdeling osv. |
-
-Herfra vil der blive beskrevet hvad der skal ske i E-conomic når en ordre modtages fra B2C shoppen
-
-### 1. Lav ny ordre
-Fra **Salg --> Ny ordre**
-
-### 2. Vælg kunde
-*Om dette punkt skal ske WooCommerce-side eller integration-side er for implementeringsspecifikt for os hos Dybdahl Erhvervstøj til at kunne svare på*
-
-Produkter kan have forskellige typer på webshoppen, som er vigtig information for ordren. Hvis `product.type` på bare ét af produkterne er forskellig fra `'Dybdahl Erhvervstøj'` er produktet købt via et foreningslogin på B2C shoppen. Alle produkter med `product.type == 'Dybdahl Erhvervstøj'` er købt af almindelige kunder uden login. (Foreninger kan også have en ordre med blandede produkttyper, fra både deres forening og `'Dybdahl Erhvervstøj'`).
-
-Proceduren for at vælge hvilken kunde som ordren er bestilt af, er som følger:
-```
-foreach product in order.products
-    if product.type is not equal to 'Dybdahl Erhvervtøj'
-        return product.type
-return 'Dybdahl Erhvervstøj'
-```
-
-Herefter kan vi vælge en kunde til ordren i E-conomic:
-1. Hvis `'Dybdahl Erhvervstøj'` blev returneret, vælg kunden **B2C - Webshop** med **nr. 2** i E-conomic.
-2. Hvis noget forskelligt fra `'Dybdahl Erhvervstøj'` blev returneret, vælg da også **B2C - Webshop** med **nr. 2** i E-conomic men ændre adressefeltet på kunden til den returnerede værdi fra proceduren.
-
-### 3. Oprettelse af felter på ordren
-Fælgende overskrifter i dette afsnit stemmer overens med hvad E-conomic kalder dem i deres brugergrænseflade.
-
-#### Betingelser
-* Hvis `order.payment_method` er betalingskort vælges i E-conomic **Betalingskort** med **nr. 2**
-* Hvis `order.payment_method` er MobilePay vælges i E-conomic **MobilePay** med **nr. 3** 
-
-#### Noter og referencer
-1. Overskrift skal være `'B2C Webshop ' + order.order_number`
-2. Tekst 1 skal være `order.mail_address + ' (' + order.phone_number + ')' + \n + order.order_notes`
-3. Tekst 2 skal være tomt
-
-#### Levering
-Opret nyt leveringssted og:
-1. Adresse skal være `order.first_name + ' ' + order.last_name + \n + order.street_name_and_number`
-2. Post nr. skal være `order.zipcode`
-3. By skal være `order.city`
-4. Land skal være `order.country`
-
-Leveringsbetingelser skal være enten GLS eller Afhentning i butik afhængig af `order.shipping_type`
-
-### 4. Oprettelse af ordrelinjer
-#### Ordrelinje
-1. Indsæt `order.product.sku` til **Varenr.** feltet
-2. **Varenavn** skal være det som E-conomic foreslår `x` men `x += order.product.custom_fields`
-3. Hvis `order.type` er forskellig fra `'Dybdahl Erhvervstøj'` indsæt da `x += ' - ' + order.type` til varens **Varenavn**
-4. Indsæt antal `order.product.amount`
-5. Ret **Pris** til `order.product.price` (Da denne kan være forskellig fra E-conomic varens). *Alle priser i E-conomic er uden moms*
-
-Gentag 1, 2, 3, 4, 5 indtil ikke flere produkter.
-
-Den sidste vare der (altid) skal tilføjes er et produkt med e-conomic **Vare nr.: Fragtwebshop**. Prisen ændres til `order.shipping_price`
-
-Hvis der mødes et produkt, som ikke findes i E-conomic, skal der ændres i overskiften på **Noter og referencer**. Der skal tilføjes strengen `' - FEJL I LINJER'` til overskriften. Det er meget vigtigt at integrationen ikke selv prøver at oprette produkter som ikke findes. (Hvis fejlen sker efter det `i`'th produkt, er det lige meget om de `i - 1` produkter forbliver på ordren eller ej)
-
-
-
-## B2B webshop
-Fra en webshop ordre `order` skal der bruges følgende felter
-
-| Felt                     | Beskrivelse                    |
-|--------------------------|--------------------------------|
-| `shop_type`              | Shoppen som ordren stammer fra |
-| `order_number`           | Ordre nummer                   |
-| `first_name`             | Købers fornavn                 |
-| `last_name`              | Købers efternavn               |
-| `lonnr`                  | Købers lønnr.                  |
-| `shipping_info`          | Købers leveringssted           |
-| `products`               | Liste af bestilte produkter    |
-| `shipping_price`         | Forsendelses gebyr             |
-| `order_notes`            | Købers bemærkninger til ordren |
-
-Fra `order.products` skal der bruges følgende felter
-
-| Felt            | Beskrivelse                         |
-|-----------------|-------------------------------------|
-| `sku`           | Varenummer på 18 tegn               |
-| `amount`        | Antal af denne vare                 |
-| `custom_fields` | Felter som navnetryk, afdeling osv. |
-
-Fra `order.shipping_info` skal der bruges følgende felter
-
-| Felt               | Woocommerce beskrivelse                       | E-conomic beskrivelse |
-|--------------------|-----------------------------------------------|-----------------------|
-| `customer_id`      | `ID` fra brugere -> groups -> Tilføj adresser | Kunde nr.             |
-| `leveringssted_id` | Nyt felt til adresser!                        | Leveringssted nr.     |
-
-Herfra vil der blive beskrevet hvad der skal ske i E-conomic når en ordre modtages
-
-### 1. Lav ny ordre
-Fra **Salg --> Ny ordre**
-
-### 2. Vælg kunde
-Vælg da kunden med **nr.** som matcher med `order.shipping_info.customer_id`. 
-
-Hvis ikke der findes en kunde i E-conomic som matcher dette, skal en ordre med kunde **nr. 100** vælges. (Vi ved, at dette betyder at der er sket en fejl fra webshoppen til E-conomic. I tekst 1 under Noter og referencer skal den indsætte `order.shipping_info.customer_id + ' fra webshop findes ikke i E-conomic'`)
-
-### 3. Vælg levering
-#### Leveringssteder
-Find leveringsstedet ved at matche **nr.** og `order.shipping_info.leveringssted_id`. Sker der ikke et match, skal der oprettes et *nyt* leveringssted med **adressen**: `'FEJL I LEVERINGSSTED FRA WEBSHOP - ' + order.shipping_info.leveringssted_id`.
-
-### 4. Noter og referencer
-1. Overskrift skal være `order.first_name + ' ' + order.last_name + ' ' + order.lonnr`
-2. Tekst 1 skal være `'B2B Webshop ' + order.order_number + \n + 'Bemærkning: ' + order.order_notes`
-3. Tekst 2 skal være tom
-
-### 5. Opret ordrelinjer
-1. Indsæt `order.product.sku` til **Varenr.** feltet
-2. **Varenavn** skal være det som E-conomic foreslår `x` men `x += order.product.custom_fields`
-3. Indsæt antal `order.product.amount`
-4. Prisen her skal ikke indsættes, da E-conomic selv skal hente de tilbudspriser, som den pågældende kunde har fået. Når vi tilføjer ordrelinjer manuelt i E-conomic henter den selv denne pris.
-
-Gentag 1, 2, 3, 4 indtil ikke flere varer.
-
-Hvis der mødes et produkt, som ikke findes, skal der ændres i overskiften på ordren. Der skal tilføjes “ - FEJL I LINJER”. Det er meget vigtigt at integrationen ikke selv prøver at oprette produktet som ikke findes. (Hvis fejlen sker efter det `i`'th produkt, er det lige meget om de `i - 1` produkter forbliver på ordren eller ej)
-
-
-## Norisol webshop
-Denne er identisk med den foregående, B2B webshop
+1. https://www.thomann.de/intl/behringer_cx2310_v2.htm (Har det med at gå til efter et par år, men koster ikke mere end man kan få et nyt)
+2. https://www.thomann.de/intl/dbx_223_xs.htm
