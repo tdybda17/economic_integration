@@ -30,6 +30,15 @@ Rigtig fornuftig top-forstærker. Har det lidt svært i 4 ohm, men trækker helt
 ### Subtotal
 DKK 20.527 (ekskl. kabler)
 
-
 # B setup
+For et lidt mindre setup kan du skifte toppen ud.
+
+### Toppe
+2x https://www.thomann.de/intl/ev_zlx_12.htm
+
+### Top forstærker
+1x https://www.thomann.de/intl/the_tamp_e800.htm
+
+### Subtoal
+DKK 18.115 (ekskl. kabler)
 
